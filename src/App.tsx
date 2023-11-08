@@ -1,13 +1,25 @@
-
-import './App.css'
+import { useCallback, useEffect } from "react";
+import "./App.css";
+import { client } from "./client";
 
 function App() {
 
-  return (
-    <>
-   Halloj
-    </>
-  )
+  const getData = useCallback(async () => {
+    try {
+      const responeFromCms = await client.getEntries({
+        content_type: "dog",
+      });
+      console.log(responeFromCms);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
+
+  return <>Halloj</>;
 }
 
-export default App
+export default App;
